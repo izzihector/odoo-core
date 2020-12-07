@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="actions_partner" model="ir.actions.act_window">
+            <field name="name">A3: Proveedores</field>
+            <field name="res_model">chariots.import.partner</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Crea un nuevo proveedor
+                </p>
+            </field>
+        </record>
+
+        <record id="actions_partner_form" model="ir.ui.view">
+            <field name="name">chariots.import.partner.form</field>
+            <field name="model">chariots.import.partner</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group string="Informacion">
+                            <field name="name"/>
+                            <field name="vat"/>
+                            <field name="supplier_id"/>
+           
+                        </group>
+                        <group string="Contabilidad">
+                            <group string="Datos Importados">
+                                <field name="number"/>
+                                <field name="is_iva_zero"/>
+                                <field name="is_iva_four"/>
+                                <field name="is_iva_ten"/>
+                                <field name="is_iva_twenty_one"/>
+                                <field name="retention"/>
+                            </group>
+                            <group string="Datos Asociados">
+                                <field name="fiscal_position_id"/>
+                                <field name="notes_partner"/>
+                                <field name="partner_bank_id"/>
+                                <field name="property_account_payable_id"/>
+                            </group>
+                        </group>
+                       
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="actions_partner_search" model="ir.ui.view">
+            <field name="name">chariots.import.partner.search</field>
+            <field name="model">chariots.import.partner</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="number"/>
+                    <field name="name"/>
+                    <field name="vat"/>
+                    <field name="retention"/>
+                    <field name="fiscal_position_id"/>
+                    <field name="partner_bank_id"/>
+                    <filter string='Hay cuentas' name="is_account_payable_import" domain="[('is_account_payable_import','=',True)]"/>
+                    <filter string='No hay Cuentas' name="is_account_payable_import" domain="[('is_account_payable_import','=',False)]"/>
+
+                </search>
+            </field>
+        </record>
+
+        <record id="actions_partner_tree" model="ir.ui.view">
+            <field name="name">chariots.import.partner.tree</field>
+            <field name="model">chariots.import.partner</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="number"/>
+                    <field name="name"/>
+                    <field name="vat"/>
+                    <field name="is_account_payable_import"/>
+                    <field name="supplier_id"/>
+                    <field name="is_iva_zero"/>
+                    <field name="is_iva_four"/>
+                    <field name="is_iva_ten"/>
+                    <field name="is_iva_twenty_one"/>
+                    <field name="retention"/>
+                    <field name="fiscal_position_id"/>
+                    <field name="notes_partner"/>
+                    <field name="partner_bank_id"/>
+                    <field name="property_account_payable_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <menuitem
+            action="actions_partner"
+            id="menu_actions_partner"
+            parent="chariots_core.account_chariots_import_menu"
+            name="A3: Proveedores"
+            sequence="4"
+        />
+    </data>
+</odoo>

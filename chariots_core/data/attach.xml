@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+
+        <!-- KFC Folder -->
+        <record id="folder_kfc" model="documents.folder">
+            <field name="name">KFC Files</field>
+        </record>
+
+        <record id="folder_sabadell" model="documents.folder">
+            <field name="name">Sabadell Files</field>
+        </record>
+
+        <!-- KFC Chat -->
+        <record id="kfc_channel" model="mail.channel">
+            <field name="name">KFC Integración</field>
+            <field name="public">public</field>
+            <field name="description">Seguimiento de KFC</field>
+        </record>
+
+        <!-- GDrive Chat -->
+        <record id="drive_channel" model="mail.channel">
+            <field name="name">GDrive Integración</field>
+            <field name="public">public</field>
+            <field name="description">Seguimiento de GDrive</field>
+        </record>
+
+        <!-- Transferencias auto conciliadas Chat -->
+        <record id="st_line_conc_auto_channel" model="mail.channel">
+            <field name="name">Transferencias Auto Conciliadas</field>
+            <field name="public">public</field>
+            <field name="description">Seguimiento de transferencias auto conciliadas</field>
+        </record>
+
+    </data>
+</odoo>

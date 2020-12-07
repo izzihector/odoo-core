@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="action_custom_report" model="ir.actions.act_window">
+            <field name="name">Informes Personalizados</field>
+            <field name="res_model">chariots.report</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('is_template','=',True)]</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Crea un nuevo informe
+                </p>
+            </field>
+        </record>
+
+        <record id="custom_report_form" model="ir.ui.view">
+            <field name="name">Form: Informe Personalizado</field>
+            <field name="model">chariots.report</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button
+                                name="generate_report"
+                                type="object"
+                                string="Generar Reporte"
+                                attrs="{'invisible':[('is_template','=',False)]}"
+                        />
+                    </header>
+                    <sheet>
+                        <div>
+                            <div class="oe_button_box" name="button_box">
+                                <button name="action_view_child"
+                                        type="object"
+                                        class="oe_stat_button"
+                                        attrs="{'invisible':[('is_template','=',False)]}"
+                                        icon="fa-pencil-square-o"
+                                >
+                                    <field name="count_childs" widget="statinfo" string="Reportes"/>
+                                </button>
+                            </div>
+                        </div>
+                        <field name="is_template" invisible="1"/>
+                        <group>
+                            <field name="name"
+                                   attrs="{'readonly':[('last_generated_date','!=',False)]}"
+                            />
+                        </group>
+                        <group col="4">
+                            <field name="report_type"
+                                   attrs="{'readonly':[('last_generated_date','!=',False)]}"
+                            />
+                            <field name="template_id"
+                                   attrs="{'readonly':[('last_generated_date','!=',False)],'required':[('report_type','!=','account.financial.html.report')],'invisible':[('report_type','!=','account.financial.html.report')]}"
+                                   options="{'no_create':True,'no_create_edit':True}"
+                            />
+                        </group>
+                        <group string="Fechas" col="4">
+                            <field attrs="{'readonly':[('last_generated_date','!=',False)]}" name="from_date"/>
+                            <field attrs="{'readonly':[('last_generated_date','!=',False)]}" name="to_date"/>
+                            <field attrs="{'readonly':[('last_generated_date','!=',False)]}" name="period_filter"/>
+                            <field attrs="{'readonly':[('last_generated_date','!=',False)]}" name="previous_period"/>
+                        </group>
+                        <group>
+                            <field attrs="{'readonly':[('last_generated_date','!=',False)]}"
+                                   name="company_id"
+                                   options="{'no_create':True,'no_create_edit':True}"/>
+                            <field name="analytic_account_ids"
+                                   attrs="{'readonly':[('last_generated_date','!=',False)]}"
+                                   options="{'no_create':True,'no_create_edit':True}"
+                                   domain="[('company_id.id', '=', company_id)]"/>
+                            <field name="analytic_tag_ids"
+                                   attrs="{'readonly':[('last_generated_date','!=',False)]}"
+                                   options="{'no_create':True,'no_create_edit':True}"
+                                   domain="[('company_id.id', '=', company_id)]"/>
+                        </group>
+                        <group string="Opciones" col="6">
+                            <field attrs="{'readonly':[('last_generated_date','!=',False)]}" name="is_draft_included"/>
+                            <field attrs="{'readonly':[('last_generated_date','!=',False)]}" name="is_extended"/>
+                            <field attrs="{'readonly':[('last_generated_date','!=',False)]}"
+                                   name="split_by_analytic_ac"/>
+                            <field attrs="{'readonly':[('last_generated_date','!=',False)]}" name="add_global_report"/>
+                        </group>
+                        <group attrs="{'invisible':[('is_template','=',True)]}" string="Datos" col="4">
+                            <field name="last_generated_date" readonly="1"/>
+                            <field name="last_generated_user" readonly="1"/>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="custom_report_search" model="ir.ui.view">
+            <field name="name">Search: Informe Personalizado</field>
+            <field name="model">chariots.report</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <field name="company_id"/>
+                    <field name="analytic_account_ids"/>
+                    <field name="analytic_tag_ids"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="custom_report_tree" model="ir.ui.view">
+            <field name="name">Tree: Informe Personalizado</field>
+            <field name="model">chariots.report</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="from_date"/>
+                    <field name="to_date"/>
+                    <field name="company_id"/>
+                    <field name="is_extended"/>
+                </tree>
+            </field>
+        </record>
+
+        <menuitem
+                action="action_custom_report"
+                id="menu_custom_report"
+                parent="account.menu_finance_reports"
+                name="Informes Personalizados Chariots"
+                sequence="110"
+        />
+
+    </data>
+</odoo>

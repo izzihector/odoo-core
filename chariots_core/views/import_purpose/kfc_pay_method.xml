@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="actions_kfc_paymethod" model="ir.actions.act_window">
+            <field name="name">KFC - Métodos de pago</field>
+            <field name="res_model">chariots.import.kfc.paymethod</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                   Crea una nueva método de pago de KFC
+                </p>
+            </field>
+        </record>
+
+        <record id="actions_kfc_paymethod_form" model="ir.ui.view">
+            <field name="name">chariots.import.kfc.paymethod.form</field>
+            <field name="model">chariots.import.kfc.paymethod</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group col="4" string="Datos">
+                            <field name="name"/>
+                            <field name="external_id"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="actions_kfc_paymethod_search" model="ir.ui.view">
+            <field name="name">chariots.import.kfc.paymethod.search</field>
+            <field name="model">chariots.import.kfc.paymethod</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <field name="external_id"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="actions_kfc_paymethod_tree" model="ir.ui.view">
+            <field name="name">chariots.import.kfc.paymethod.tree</field>
+            <field name="model">chariots.import.kfc.paymethod</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="external_id"/>
+                    <field name="name"/>
+                    <field name="account_id"/>
+                    <field name="journal_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <menuitem
+            action="actions_kfc_paymethod"
+            id="menu_actions_kfc_paymethod"
+            parent="account_chariots_kfc_menu_config"
+            name="Métodos de pago"
+            sequence="1"
+        />
+
+    </data>
+</odoo>

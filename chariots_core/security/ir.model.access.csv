@@ -1,0 +1,18 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+chariots_import_a3_odoo,chariots.import.a3.odoo,model_chariots_import_a3_odoo,account.group_account_user,1,1,1,1
+chariots_import_a3_move,chariots.import.a3.move,model_chariots_import_a3_move,account.group_account_user,1,1,1,1
+chariots_import_product,chariots.import.a3.move,model_chariots_import_product,account.group_account_user,1,1,1,1
+chariots_import_a3_partner,chariots.import.a3.partner,model_chariots_import_partner,account.group_account_user,1,1,1,1
+chariots_import_kfc_category,chariots.import.kfc.category,model_chariots_import_kfc_category,account.group_account_user,1,1,1,1
+chariots_import_kfc_timerange,chariots.import.kfc.category,model_chariots_import_kfc_timerange,account.group_account_user,1,1,1,1
+chariots_import_kfc_tax,chariots.import.kfc.tax,model_chariots_import_kfc_tax,account.group_account_user,1,1,1,1
+chariots_import_kfc_store,chariots.import.kfc.store,model_chariots_import_kfc_store,account.group_account_user,1,1,1,1
+chariots_import_kfc_paymethod,chariots.import.kfc.paymethod,model_chariots_import_kfc_paymethod,account.group_account_user,1,1,1,1
+chariots_import_kfc_product,chariots.import.kfc.product,model_chariots_import_kfc_product,account.group_account_user,1,1,1,1
+chariots_import_kfc_channel,chariots.import.kfc.channel,model_chariots_import_kfc_channel,account.group_account_user,1,1,1,1
+chariots_import_kfc_sale_line,chariots.import.kfc.sale.line,model_chariots_import_kfc_sale_line,account.group_account_user,1,1,1,1
+chariots_import_kfc_sale,chariots.import.kfc.sale,model_chariots_import_kfc_sale,account.group_account_user,1,1,1,1
+chariots_import_kfc_sale_tax,chariots.import.kfc.sale.tax,model_chariots_import_kfc_sale_tax,account.group_account_user,1,1,1,1
+chariots_kfc_sale_report,kfc sale report,model_kfc_sale_report,base.group_user,1,1,1,1
+chariots_custom_report,Chariots Custom Reports,model_chariots_report,account.group_account_user,1,1,1,1
+hr_expense_code,Hr Expense Code,model_hr_expense_code,account.group_account_user,1,1,1,1

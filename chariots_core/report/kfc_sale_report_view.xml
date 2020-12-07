@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <!-- Informe KFC VENTAS -->
+        <record id="kfc_sale_report_graph_view" model="ir.ui.view">
+            <field name="name">kfc.sale.report.graph</field>
+            <field name="model">kfc.sale.report</field>
+            <field name="arch" type="xml">
+                <graph string="Ventas KFC">
+                    <field name="store_id"/>
+                    <field name="qty" type="measure"/>
+                    <field name="unit_amount_subtotal" type="measure"/>
+                    <field name="unit_amount_total" type="measure"/>
+                    <field name="unit_amount_tax" type="measure"/>
+                    <field name="amount_subtotal" type="measure"/>
+                    <field name="amount_tax" type="measure"/>
+                    <field name="amount_total" type="measure"/>
+                </graph>
+            </field>
+        </record>
+
+        <record id="kfc_sale_report_pivot_view" model="ir.ui.view">
+            <field name="name">kfc.sale.report.pivot</field>
+            <field name="model">kfc.sale.report</field>
+            <field name="arch" type="xml">
+                <pivot string="Ventas KFC">
+                    <field name="store_id" type="row"/>
+                    <field name="date" type="col" interval="month"/>
+                    <field name="qty" type="measure"/>
+                    <field name="amount_subtotal" type="measure"/>
+                    <field name="amount_tax" type="measure"/>
+                    <field name="amount_total" type="measure"/>
+                </pivot>
+            </field>
+        </record>
+
+         <!-- SEARCH VIEW -->
+        <record id="kfc_sale_report_search_view" model="ir.ui.view">
+            <field name="name">kfc.sale.report.search</field>
+            <field name="model">kfc.sale.report</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="store_id"/>
+                    <field name="sale_id"/>
+                    <field name="channel_id"/>
+                    <field name="range_id"/>
+                    <field name="payment_method_id"/>
+                    <group expand="0" string="Agrupar por">
+                        <filter name="group_by_store_id" string="Tienda" context="{'group_by': 'store_id'}" />
+                        <filter name="group_by_sale" string="Venta" context="{'group_by': 'sale_id'}" />
+                        <filter name="group_by_channel" string="Canal" context="{'group_by': 'channel_id'}" />
+                        <filter name="group_by_range" string="Categoría" context="{'group_by': 'category_name'}" />
+                        <filter name="group_by_range" string="Rango Horario" context="{'group_by': 'range_id'}" />
+                        <filter name="group_by_payment_method" string="Pago" context="{'group_by': 'payment_method_id'}" />
+                        <filter name="group_by_product_date" string="Fecha" context="{'group_by': 'date'}" />
+
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- FILTERS -->
+        <record id="kfc_sale_report_action_graph_action" model="ir.actions.act_window">
+            <field name="name">Analisis Ventas KFC</field>
+            <field name="res_model">kfc.sale.report</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">graph,pivot</field>
+            <field name="view_id"></field>
+        </record>
+
+        <record id="kfc_sale_report_action_graph_action_view" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">graph</field>
+            <field name="view_id" ref="kfc_sale_report_graph_view"/>
+            <field name="act_window_id" ref="kfc_sale_report_action_graph_action"/>
+        </record>
+
+        <record id="kfc_sale_report_action_pivot_action_view" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">pivot</field>
+            <field name="view_id" ref="kfc_sale_report_pivot_view"/>
+            <field name="act_window_id" ref="kfc_sale_report_action_graph_action"/>
+        </record>
+        
+        <menuitem id="kfc_sale_report_menu" 
+                name="Informes Ventas KFC"
+                parent="account.account_reports_management_menu" 
+                sequence='100'
+                groups="account.group_account_invoice"
+                action="chariots_core.kfc_sale_report_action_graph_action"/>
+
+    </data>
+</odoo>

@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- Vista Form para facturas Recibidas -->
+    <record id="account_invoice_inherit" model="ir.ui.view">
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_supplier_form"/>
+        <field name="arch" type="xml">
+            <field name="reference" position="replace"/>
+            <field name="partner_id" position="after">
+                <field name="default_ac_analytic_id"
+                       attrs="{'invisible': [('type','not in',['in_invoice','in_refund'])]}" options="{'no_create':True,'no_create_edit':True}"/>
+            </field>
+            <xpath expr="//h1" position="replace" attrs="{'invisible': [('type','in',['in_invoice','in_refund'])]}">
+                <h1 class="mt0">
+                    <field name="reference" class="oe_inline"/>
+                    <field name="sequence_number_next_prefix" invisible="1"/>
+                    <field name="sequence_number_next" invisible="1"/>
+                </h1>
+            </xpath>
+            <xpath expr="//form/sheet/div" position="before">
+                <span class="o_form_label">- Nombre Diario:</span>
+                <field name="account_journal_name" class="oe_inline"/>
+                <field name="account_journal_code" invisible="1"/>
+                <div></div>
+            </xpath>
+            <xpath expr="//form/sheet/div/span[hasclass('o_form_label')]" position="replace"/>
+            <xpath expr="//form/sheet/div/span[hasclass('o_form_label')]" position="replace">
+                <span class="o_form_label">- Referencia de proveedor:</span>
+            </xpath>
+            <xpath expr="//form/sheet/notebook/page[@name='other_info']/group/group/field[@name='fiscal_position_id']"
+                   position="after">
+                <field name="is_assess"/>
+                <field name="account_move_state"/>
+                <field name="payment_origin_sel"/>
+            </xpath>
+            
+            <xpath expr="//form/header/button[@name='action_invoice_open']" position="after">
+                <button name="action_asses_validated" type="object" string="Lista para contabilizar"
+                        class="oe_highlight" groups="account.group_account_invoice"
+                        attrs="{'invisible': [('is_assess', '=', True)]}"/>
+                <button name="action_invoice_canceled" type="object" string="Cancelar Factura"
+                        groups="account.group_account_invoice" attrs="{'invisible': [('state', '!=', 'open')]}"/>
+            </xpath>
+            <field name="move_name" position="before">
+                <field name="is_flagged"/>
+            </field>
+            <xpath expr="//field[@name='partner_id']" position="attributes">
+                <attribute name="options">{'no_create':True,'no_create_edit':True}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='partner_bank_id']" position="attributes">
+                <attribute name="options">{'no_create':True,'no_create_edit':True}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='product_id']" position="attributes">
+                <attribute name="options">{'no_create':True,'no_create_edit':True}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='account_id']" position="attributes">
+                <attribute name="options">{'no_create':True,'no_create_edit':True}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='account_analytic_id']" position="attributes">
+                <attribute name="options">{'no_create':True,'no_create_edit':True}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='tax_line_ids']/tree/field[@name='account_id']" position="attributes">
+                <attribute name="options">{'no_create':True,'no_create_edit':True}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='tax_line_ids']/tree/field[@name='account_analytic_id']" position="attributes">
+                <attribute name="options">{'no_create':True,'no_create_edit':True}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='tax_line_ids']/tree/field[@name='currency_id']" position="after">
+                <field name="force_base" groups="base.group_no_one"/>
+                <field name="force_base_company" groups="base.group_no_one"/>
+                <field name="base_company" groups="base.group_no_one"/>
+            </xpath>
+            <xpath expr="//sheet/div" position="before">
+                <div class="oe_button_box" name="button_box">
+                    <button name="action_view_batch_payment" type="object"
+                        class="oe_stat_button" icon="fa-pencil-square-o"
+                        attrs="{'invisible': [('batch_payment_count', '=', 0)]}">
+                        <field name="batch_payment_count" widget="statinfo" string="Lotes de pago"/>
+                    </button>
+                </div>
+            </xpath>
+            <notebook position="inside">
+                <page name="expenses" string="Gastos">
+                    <field name="expense_ids" nolabel="1" >
+                        <tree>
+                            <field name="state" invisible="1"/>
+                            <field name="name"/>
+                            <field name="date"/>
+                            <field name="employee_id"/>
+                            <field name="total_amount"/>
+                            <field name="payment_mode"/>
+                            <field name="analytic_account_id"/>
+                            <field name="analytic_tag_ids" widget="many2many"/>
+                        </tree>
+                    </field>
+                </page>
+            </notebook>
+        </field>
+    </record>
+    <!-- Vista Form heredada del SII para facturas Recibidas -->
+    <record id="account_invoice_supplier_sii_inherit" model="ir.ui.view">
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="l10n_es_aeat_sii.invoice_supplier_sii_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form/header/button[@name='send_sii']" position="attributes">
+                <attribute name="attrs">{'invisible': ['|','|',('state', 'not in', ['open','in_payment','paid']),
+                    ('sii_enabled', '=', False),
+                    ('sii_state', 'in', ['sent','cancelled'])
+                    ]}
+                </attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Vista Form para facturas Emitidas -->
+    <record id="account_invoice_client_inherit" model="ir.ui.view">
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form/sheet/notebook/page[@name='other_info']/group/group/field[@name='fiscal_position_id']"
+                   position="after">
+                <field name="is_assess"/>
+                <field name="account_move_state"/>
+                <field name="move_payment_id"/>
+                <field name="account_journal_code" invisible="1"/>
+
+            </xpath>
+            <field name="user_id" position="after">
+                <field name="is_flagged"/>
+                <field name="is_grouped_invoice" invisible="1"/>
+                <field name="is_substitute_invoice" invisible="1"/>
+            </field>
+            <xpath expr="//field[@name='date_due']" position="before">
+                <field name="real_sale_date" attrs="{'invisible': [('account_journal_code', '=', 'CANJE')]}"/>
+                <field name="date" attrs="{'invisible': [('account_journal_code', '=', 'CANJE')]}"/>
+            </xpath>
+            <xpath expr="//field[@name='date_due']" position="attributes">
+                <attribute name="attrs">{'invisible': [('account_journal_code', '=', 'CANJE')]}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='payment_term_id']" position="after">
+                <field name="serial_tickets_code_sii"/>
+            </xpath>
+            <xpath expr="//form/sheet/div" position="before">
+                <span class="o_form_label">Nombre Diario:</span>
+                <field name="account_journal_name" class="oe_inline"/>
+                <div></div>
+            </xpath>
+            <xpath expr="//sheet/div[@name='button_box']" position="inside">
+                <button type="object"
+                        class="oe_stat_button"
+                        icon="fa-pencil-square-o"
+                        name="action_go_kfc_sale_line"
+                >
+                    <div class="o_form_field o_stat_info">
+                        <span class="o_stat_value">
+                            <field name="kfc_line_count" />
+                        </span>
+                        <span class="o_stat_text">Ventas KFC</span>
+                    </div>
+                </button>
+                <button name="action_view_batch_payment" type="object"
+                    class="oe_stat_button" icon="fa-pencil-square-o"
+                    attrs="{'invisible': [('batch_payment_count', '=', 0)]}">
+                    <field name="batch_payment_count" widget="statinfo" string="Lotes de pago"/>
+                </button>
+            </xpath>
+            <field name="partner_id" position="after">
+                <field name="default_ac_analytic_id" options="{'no_create':True,'no_create_edit':True}"/>
+            </field>
+            <xpath expr="//form/header/button[@name='action_invoice_open']" position="after">
+                <button name="action_asses_validated" type="object" string="Lista para contabilizar"
+                        class="oe_highlight" groups="account.group_account_invoice"
+                        attrs="{'invisible': [('is_assess', '=', True)]}"/>
+                <button name="action_invoice_canceled" type="object" string="Cancelar Factura"
+                        groups="account.group_account_invoice" attrs="{'invisible': [('state', '!=', 'open')]}"/>
+            </xpath>
+            <xpath expr="//field[@name='partner_id']" position="attributes">
+                <attribute name="options">{'no_create':True,'no_create_edit':True}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='partner_bank_id']" position="attributes">
+                <attribute name="options">{'no_create':True,'no_create_edit':True}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='product_id']" position="attributes">
+                <attribute name="options">{'no_create':True,'no_create_edit':True}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='account_id']" position="attributes">
+                <attribute name="options">{'no_create':True,'no_create_edit':True}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='account_analytic_id']" position="attributes">
+                <attribute name="options">{'no_create':True,'no_create_edit':True}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='tax_line_ids']/tree/field[@name='account_id']" position="attributes">
+                <attribute name="options">{'no_create':True,'no_create_edit':True}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='tax_line_ids']/tree/field[@name='account_analytic_id']" position="attributes">
+                <attribute name="options">{'no_create':True,'no_create_edit':True}</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Vista Form heredada del SII para facturas Emitidas -->
+    <record id="account_invoice_sii_inherit" model="ir.ui.view">
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="l10n_es_aeat_sii.invoice_sii_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form/header/button[@name='send_sii']" position="attributes">
+                <attribute name="attrs">{'invisible': [
+                    '|',
+                    '|',
+                    ('sii_enabled', '=', False), 
+                    ('state', 'not in', ['open','in_payment','paid']), 
+                    ('sii_state','in',['sent','cancelled'])
+                    ]}
+                </attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Vista Árbol para Facturas Emitidas -->
+    <record id="account_invoice_tree_client_inherit" model="ir.ui.view">
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='origin']" position="replace">
+                <field name="default_ac_analytic_id"/>
+            </xpath>
+            <xpath expr="//field[@name='state']" position="after">
+                <field name="is_flagged" readonly="0"/>
+            </xpath>
+            <xpath expr="//field[@name='date_due']" position="before">
+                <field name="real_sale_date"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Vista Árbol para Facturas Recibidas -->
+    <record id="account_invoice_supplier_tree_inherit" model="ir.ui.view">
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_supplier_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='state']" position="after">
+                <field name="payment_origin_sel"/>
+                <field name="is_flagged" readonly="0"/>
+            </xpath>
+            <xpath expr="//field[@name='date_due']" position="before">
+                <field name="real_sale_date"/>
+            </xpath>
+            <xpath expr="//field[@name='origin']" position="replace">
+                <field name="default_ac_analytic_id"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Vista de Search para todas las facturas o notas de credito -->
+    <record id="account_invoice_filter_inherit" model="ir.ui.view">
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.view_account_invoice_filter"/>
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <field name="invoice_line_ids" string="Líneas de Factura"/>
+                <field name="fiscal_position_id" string="Posición Fiscal"/>
+                <field name="payment_origin_sel"/>
+                <field name="default_ac_analytic_id" string="Cuenta analítica"/>
+               
+            </field>
+            <xpath expr="//filter[@name='duedate']" position="after">
+                <separator/>
+                <filter string="Cuenta analítica" name="acc_analytic" context="{'group_by':'default_ac_analytic_id'}"/>
+                <filter string="Fecha Venta Real" name="r_sale_date" context="{'group_by':'real_sale_date'}"/>
+                <filter string="Vía de pago" name="pay_origin_sel" context="{'group_by':'payment_origin_sel'}"/>
+
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_update_sii_invoices" model="ir.actions.server">
+        <field name="name">Actualizar Facturas SII</field>
+        <field name="type">ir.actions.server</field>
+        <field name="state">code</field>
+        <field name="model_id" ref="account.model_account_invoice"/>
+        <field name="binding_model_id" ref="model_account_invoice"/>
+        <field name="code">
+            if records:
+            action = records._send_invoice_to_sii()
+        </field>
+    </record>
+
+    <record id="action_asses_validated" model="ir.actions.server">
+        <field name="name">Contabilizar Facturas</field>
+        <field name="type">ir.actions.server</field>
+        <field name="state">code</field>
+        <field name="model_id" ref="account.model_account_invoice"/>
+        <field name="binding_model_id" ref="model_account_invoice"/>
+        <field name="code">
+            if records:
+            action = records.action_asses_validated()
+        </field>
+    </record>
+
+
+    <record id="update_move_lines" model="ir.actions.server">
+        <field name="name">Actualizar asientos contables</field>
+        <field name="type">ir.actions.server</field>
+        <field name="state">code</field>
+        <field name="model_id" ref="account.model_account_invoice"/>
+        <field name="binding_model_id" ref="model_account_invoice"/>
+        <field name="code">
+            if records:
+            action = records.update_move_lines()
+        </field>
+    </record>
+    <record id="update_invoices_is_flag" model="ir.actions.server">
+        <field name="name">Marcar</field>
+        <field name="type">ir.actions.server</field>
+        <field name="state">code</field>
+        <field name="model_id" ref="account.model_account_invoice"/>
+        <field name="binding_model_id" ref="model_account_invoice"/>
+        <field name="code">
+            if records:
+            action = records.invoices_flag(flag=0)
+        </field>
+    </record>
+    <record id="update_invoices_is_not_flag" model="ir.actions.server">
+        <field name="name">Desmarcar</field>
+        <field name="type">ir.actions.server</field>
+        <field name="state">code</field>
+        <field name="model_id" ref="account.model_account_invoice"/>
+        <field name="binding_model_id" ref="model_account_invoice"/>
+        <field name="code">
+            if records:
+            action = records.invoices_flag(flag=1)
+        </field>
+    </record>
+
+</odoo>

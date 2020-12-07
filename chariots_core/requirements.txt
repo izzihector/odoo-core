@@ -1,0 +1,5 @@
+zeep==3.4.0
+pyOpenSSL==19.0.0
+paramiko==2.7.1
+ftplib
+schwifty==2018.9.1

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+<template id="assets_chariots_core" name="assets_chariots_core" inherit_id="web.assets_backend">
+        <!--JS-->
+        <xpath expr="script[last()]" position="after">
+             <script type="text/javascript" src="/chariots_core/static/src/js/main.js"></script>
+        </xpath>
+</template>
+</odoo>

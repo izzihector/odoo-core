@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="actions_kfc_sale" model="ir.actions.act_window">
+            <field name="name">KFC - Ventas</field>
+            <field name="res_model">chariots.import.kfc.sale</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Crea una nueva venta de KFC
+                </p>
+            </field>
+        </record>
+
+        <record id="actions_kfc_sale_form" model="ir.ui.view">
+            <field name="name">chariots.import.kfc.sale.form</field>
+            <field name="model">chariots.import.kfc.sale</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group col="6" string="Fecha">
+                            <field name="external_id"/>
+                            <field name="date"/>
+                            <field name="hour"/>
+                        </group>
+                        <group col="6" string="Ids">
+                            <field name="store"/>
+                            <field name="canal"/>
+                            <field name="pago"/>
+                        </group>
+                        <notebook>
+                            <page string="Líneas" name="lineas">
+                                <group>
+                                    <field name="line_ids" nolabel="1"/>
+                                </group>
+                                <group>
+                                    <field name="amount_subtotal"/>
+                                    <field name="amount_tax"/>
+                                    <field name="amount_total"/>
+                                </group>
+                            </page>
+                            <page string="Relacionados">
+                                <group col="6">
+                                    <field name="store_id"/>
+                                    <field name="range_id"/>
+                                    <field name="channel_id"/>
+                                    <field name="payment_method_id"/>
+                                </group>
+                            </page>
+                           
+                            <page string="Totales">
+                                <group col="6" string="Totales">
+                                    <field name="total_base"/>
+                                    <field name="total_tax"/>
+                                    <field name="total_net"/>
+                                    <field name="total_discount"/>
+                                </group>
+                            </page>
+                            <page string="Datos Calculados" groups="base.group_no_one">
+                                <group col="6">
+                                    <field name="calc_subtotal"/>
+                                    <field name="calc_total"/>
+                                </group>
+                                <group>
+                                    <field name='calc_tax_ids' options="{'no_create':True,'no_create_edit':True}"
+                                           mode="tree" nolabel="1">
+                                        <tree editable="bottom">
+                                            <field name="amount_subtotal"/>
+                                            <field name="tax_id"/>
+                                            <field name="amount_tax"/>
+                                        </tree>
+                                    </field>
+                                </group>
+                            </page>
+                            <page string="Otros Datos">
+                                <group col="6">
+                                    <field name="n_lineas"/>
+                                    <field name="trans_status"/>
+                                    <field name="trans_count"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="actions_kfc_sale_search" model="ir.ui.view">
+            <field name="name">chariots.import.kfc.sale.search</field>
+            <field name="model">chariots.import.kfc.sale</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="external_id"/>
+                    <field name="date"/>
+                    <field name="range_id"/>
+                    <field name="store_id"/>
+                    <field name="channel_id"/>
+                    <field name="amount_total"/>
+                    <field name="amount_subtotal"/>
+                    <field name="amount_tax"/>
+                    <field name="trans_count"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="actions_kfc_sale_tree" model="ir.ui.view">
+            <field name="name">chariots.import.kfc.sale.tree</field>
+            <field name="model">chariots.import.kfc.sale</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="external_id"/>
+                    <field name="date"/>
+                    <field name="range_id"/>
+                    <field name="store_id"/>
+                    <field name="channel_id"/>
+                    <field name="amount_total" invisible="1"/>
+                    <field name="amount_subtotal" invisible="1"/>
+                    <field name="amount_tax" invisible="1"/>
+                    <field name="total_base"/>
+                    <field name="total_tax"/>
+                    <field name="total_net"/>
+                    <field name="total_discount"/>
+                </tree>
+            </field>
+        </record>
+
+        <menuitem
+                action="actions_kfc_sale"
+                id="menu_actions_kfc_sale"
+                parent="account_chariots_kfc_menu_sales"
+                name="Ventas"
+                sequence="1"
+        />
+
+        <record id="actions_kfc_sale_line" model="ir.actions.act_window">
+            <field name="name">KFC - Líneas de Venta</field>
+            <field name="res_model">chariots.import.kfc.sale.line</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Crea una nueva línea de venta de KFC
+                </p>
+            </field>
+        </record>
+
+        <record id="actions_kfc_sale_line_form" model="ir.ui.view">
+            <field name="name">chariots.import.kfc.sale.line.form</field>
+            <field name="model">chariots.import.kfc.sale.line</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group col="6" string="Fecha">
+                            <field name="external_id"/>
+                            <field name="date"/>
+                        </group>
+                        <group col="6" string="Ids">
+                            <field name="sale"/>
+                            <field name="store"/>
+                            <field name="product"/>
+                            <field name="product_parent"/>
+                            <field name="category"/>
+                        </group>
+                        <group col="6" string="Por unidad">
+                            <field name="unit_amount_total"/>
+                            <field name="unit_amount_subtotal"/>
+                            <field name="unit_amount_tax"/>
+                        </group>
+                        <group col="6" string="Dinero">
+                            <field name="amount_subtotal"/>
+                            <field name="amount_tax"/>
+                            <field name="amount_total"/>
+                            <field name="discount"/>
+                        </group>
+                        <group col="6" string="Más datos">
+                            <field name="category_name"/>
+                            <field name="tax"/>
+                            <field name="qty"/>
+                        </group>
+                        <group col="6" string="Relacionados">
+                            <field name="sale_id"/>
+                            <field name="store_id"/>
+                            <field name="kfc_product_id" options="{'no_create':True,'no_create_edit':True}"/>
+                            <field name="kfc_parent_product_id"/>
+                            <field name="product_id" options="{'no_create':True,'no_create_edit':True}"/>
+                            <field name="kfc_tax_id"/>
+                            <field name="tax_id"/>
+                            <field name="invoice_id"/>
+                        </group>
+                        <group col="6" string="Totales">
+                            <field name="total_net"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="actions_kfc_sale_line_search" model="ir.ui.view">
+            <field name="name">chariots.import.kfc.sale.line.search</field>
+            <field name="model">chariots.import.kfc.sale.line</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="external_id"/>
+                    <field name="date"/>
+                    <field name="amount_subtotal"/>
+                    <field name="amount_tax"/>
+                    <field name="amount_total"/>
+                    <field name="invoice_id"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="actions_kfc_sale_line_tree" model="ir.ui.view">
+            <field name="name">chariots.import.kfc.sale.line.tree</field>
+            <field name="model">chariots.import.kfc.sale.line</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="external_id"/>
+                    <field name="date"/>
+                    <field name="amount_subtotal"/>
+                    <field name="amount_tax"/>
+                    <field name="amount_total"/>
+                    <field name="total_net"/>
+                    <field name="invoice_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <menuitem
+                action="actions_kfc_sale_line"
+                id="menu_actions_kfc_sale_line"
+                parent="account_chariots_kfc_menu_sales"
+                name="Línea de Ventas"
+                sequence="1"
+        />
+
+        <record id="actions_kfc_sale_tax" model="ir.actions.act_window">
+            <field name="name">Líneas de impuestos de ventas</field>
+            <field name="res_model">chariots.import.kfc.sale.tax</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Crea una linea nueva de impuesto
+                </p>
+            </field>
+        </record>
+
+        <record id="actions_kfc_sale_tax_search" model="ir.ui.view">
+            <field name="name">chariots.import.kfc.sale.tax.search</field>
+            <field name="model">chariots.import.kfc.sale.tax</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="store_id"/>
+                    <field name="payment_method_id"/>
+                    <field name="channel_id"/>
+                    <field name="tax_id"/>
+                    <field name="date"/>
+                    <field name="sale_id"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="actions_kfc_sale_tax_tree" model="ir.ui.view">
+            <field name="name">chariots.import.kfc.sale.tax.tree</field>
+            <field name="model">chariots.import.kfc.sale.tax</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="sale_id"/>
+                    <field name="store_id"/>
+                    <field name="tax_id"/>
+                    <field name="payment_method_id"/>
+                    <field name="channel_id"/>
+                    <field name="amount_subtotal" invisible="1"/>
+                    <field name="amount_total"/>
+                    <field name="amount_tax"/>
+                    <field name="amount_total_fix"/>
+
+                </tree>
+            </field>
+        </record>
+
+        <menuitem
+                action="actions_kfc_sale_tax"
+                id="menu_actions_kfc_sale_tax"
+                parent="account_chariots_kfc_menu_sales"
+                name="Impuestos de Ventas"
+                sequence="1"
+        />
+
+    </data>
+</odoo>

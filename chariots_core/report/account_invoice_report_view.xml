@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_account_invoice_report_search" model="ir.ui.view">
+        <field name="inherit_id" ref="account.view_account_invoice_report_search"/>
+        <field name="model">account.invoice.report</field>
+        <field name="arch" type="xml">
+            <field name="categ_id" position="after">
+                <field name="real_sale_date" />
+            </field>
+        </field>
+    </record>
+    
+    <!-- PIVOT VIEW -->
+    <record id="view_account_invoice_report_pivot_inherit" model="ir.ui.view">
+        <field name="name">view.account.invoice.report.pivot.inherit</field>
+        <field name="inherit_id" ref="account.view_account_invoice_report_pivot"/>
+        <field name="model">account.invoice.report</field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='price_total']" position="before">
+                <field name="amount_tax" type="measure"/>
+            </xpath>
+        </field>
+    </record>
+    
+    <!-- GRAPH VIEW -->
+    <record id="view_account_invoice_report_graph_inherit" model="ir.ui.view">
+        <field name="name">view.account.invoice.report.graph.inherit</field>
+        <field name="inherit_id" ref="account.view_account_invoice_report_graph"/>
+        <field name="model">account.invoice.report</field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='price_total']" position="before">
+                <field name="amount_tax" type="measure"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

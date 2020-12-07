@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="actions_kfc_timerange" model="ir.actions.act_window">
+            <field name="name">KFC - Rangos de Tiempo</field>
+            <field name="res_model">chariots.import.kfc.timerange</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                   Crea un nuevo rango de tiempo para las ventas de KFC
+                </p>
+            </field>
+        </record>
+
+        <record id="actions_kfc_timerange_form" model="ir.ui.view">
+            <field name="name">chariots.import.kfc.timerange.form</field>
+            <field name="model">chariots.import.kfc.timerange</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group col="6" string="Datos">
+                            <field name="name"/>
+                            <field name="analytic_tag_id"/>
+                            <field name="order"/>
+                        </group>
+                        <group col="4" string="Datos">
+                            <field name="start_hour" widget="float_time" />
+                            <field name="end_hour" widget="float_time" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="actions_kfc_timerange_search" model="ir.ui.view">
+            <field name="name">chariots.import.kfc.timerange.search</field>
+            <field name="model">chariots.import.kfc.timerange</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <field name="analytic_tag_id"/>
+                    <field name="start_hour"/>
+                    <field name="end_hour"/>
+                    <field name="order"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="actions_kfc_timerange_tree" model="ir.ui.view">
+            <field name="name">chariots.import.kfc.timerange.tree</field>
+            <field name="model">chariots.import.kfc.timerange</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="analytic_tag_id"/>
+                    <field name="start_hour" widget="float_time" />
+                    <field name="end_hour" widget="float_time" />
+                    <field name="order"/>
+                </tree>
+            </field>
+        </record>
+
+        <menuitem
+            action="actions_kfc_timerange"
+            id="menu_actions_kfc_timerange"
+            parent="account_chariots_kfc_menu_config"
+            name="Rangos de Tiempo"
+            sequence="0"
+        />
+
+    </data>
+</odoo>

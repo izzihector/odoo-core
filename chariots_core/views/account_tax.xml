@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- Vista Form para Impuestos -->
+    <record id="account_tax_form_inherit" model="ir.ui.view">
+        <field name="model">account.tax</field>
+      	<field name="inherit_id" ref="account.view_tax_form"/>
+      	<field name="arch" type="xml">
+            <field name="company_id" position="after">
+                <field name="tax_template_id" />
+            </field>
+            <field name="amount" position="after">
+                <field name="sii_force_amount" />
+            </field>
+   	    </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- For Import Purpose -->
+        <record id="ir_cron_import_to_related" model="ir.cron">
+            <field name="name">Chariots Import Purpose: relacionar A3 con Odoo</field>
+            <field name="model_id" ref="chariots_core.model_chariots_import_a3_odoo"/>
+            <field name="state">code</field>
+            <field name="active" eval="False"/>
+            <field name="code">model.import_to_related()</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+        </record>
+        <record id="ir_cron_migrate_accounts" model="ir.cron">
+            <field name="name">Chariots Import Purpose: migrar al Plan Contable</field>
+            <field name="model_id" ref="chariots_core.model_chariots_import_a3_odoo"/>
+            <field name="state">code</field>
+            <field name="active" eval="False"/>
+            <field name="code">model.migrate_accounts()</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+        </record>
+        <record id="ir_cron_relate_move" model="ir.cron">
+            <field name="name">Chariots Import Purpose: relacionar movimientos con Cuentas</field>
+            <field name="model_id" ref="chariots_core.model_chariots_import_a3_move"/>
+            <field name="state">code</field>
+            <field name="active" eval="False"/>
+            <field name="code">model.relate_account()</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+        </record>
+        <record id="ir_cron_migrate_move" model="ir.cron">
+            <field name="name">Chariots Import Purpose: Migrar Asientos Contables</field>
+            <field name="model_id" ref="chariots_core.model_chariots_import_a3_move"/>
+            <field name="state">code</field>
+            <field name="active" eval="False"/>
+            <field name="code">model.create_moves()</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+        </record>
+        <record id="ir_cron_migrate_move_line" model="ir.cron">
+            <field name="name">Chariots Import Purpose: Migrar Apuntes Contables</field>
+            <field name="model_id" ref="chariots_core.model_chariots_import_a3_move"/>
+            <field name="state">code</field>
+            <field name="active" eval="False"/>
+            <field name="code">model.create_moves_line()</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+        </record>
+        <record id="ir_cron_migrate_move_publish" model="ir.cron">
+            <field name="name">Chariots Import Purpose: Publicar Asientos Contables</field>
+            <field name="model_id" ref="chariots_core.model_chariots_import_a3_move"/>
+            <field name="state">code</field>
+            <field name="active" eval="False"/>
+            <field name="code">model.publish_moves()</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+        </record>
+        <record id="ir_cron_migrate_transactions" model="ir.cron">
+            <field name="name">Chariots Import Purpose: Crear transacciones</field>
+            <field name="model_id" ref="model_account_bank_statement_import"/>
+            <field name="state">code</field>
+            <field name="active" eval="False"/>
+            <field name="code">model.cron_get_transactions()</field>
+        </record>
+        <record id="ir_cron_import_accounts_suppliers" model="ir.cron">
+            <field name="name">Chariots Import Purpose: Importar cuentas para los proveedores</field>
+            <field name="model_id" ref="chariots_core.model_chariots_import_partner"/>
+            <field name="state">code</field>
+            <field name="active" eval="False"/>
+            <field name="code">model.migrate_account_supplier()</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+        </record>
+        <record id="ir_cron_relate_kfc_sale" model="ir.cron">
+            <field name="name">Chariots KFC: Relacionar ventas de KFC</field>
+            <field name="model_id" ref="chariots_core.model_chariots_import_kfc_sale"/>
+            <field name="state">code</field>
+            <field name="active" eval="False"/>
+            <field name="code">model.relate_models()
+                #model.generate_invoice('2020-01-01')
+            </field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+        </record>
+        <record id="ir_cron_relate_kfc_sale_line" model="ir.cron">
+            <field name="name">Chariots KFC: Relacionar líneas de ventas de KFC</field>
+            <field name="model_id" ref="chariots_core.model_chariots_import_kfc_sale_line"/>
+            <field name="state">code</field>
+            <field name="active" eval="False"/>
+            <field name="code">model.relate_models()</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+        </record>
+        <record id="ir_cron_relate_kfc_product" model="ir.cron">
+            <field name="name">Chariots KFC: Relacionar Productos de KFC</field>
+            <field name="model_id" ref="chariots_core.model_chariots_import_kfc_product"/>
+            <field name="state">code</field>
+            <field name="active" eval="False"/>
+            <field name="code">model.relate_models()</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+        </record>
+        <record model="ir.cron" id="ir_cron_import_kfc_sale_ftp">
+            <field name="name">Chariots KFC: Importar Transacciones y Detalles de FTP</field>
+            <field name="model_id" ref="chariots_core.model_chariots_import_kfc_sale"/>
+            <field name="state">code</field>
+            <field name="code">model.cron_get_kfc_sale()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="active" eval="False"/>
+            <field name="nextcall" eval="(datetime.utcnow() + timedelta(days=0)).strftime('%Y-%m-%d 10:00:00')"/>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="True"/>
+        </record>
+        <record model="ir.cron" id="ir_cron_auto_reconcile_bank_statement_lines">
+            <field name="name">Chariots: Conciliación automatica de Operaciones</field>
+            <field name="model_id" ref="account.model_account_bank_statement_line"/>
+            <field name="state">code</field>
+            <field name="code">model.cron_auto_reconciliation()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="active" eval="False"/>
+            <field name="nextcall" eval="(datetime.utcnow() + timedelta(days=0)).strftime('%Y-%m-%d 08:00:00')"/>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="True"/>
+        </record>
+        <record model="ir.cron" id="ir_cron_auto_del_reconcile_bank_statement_lines">
+            <field name="name">Chariots: Borrar conciliacion automatica de Operaciones</field>
+            <field name="model_id" ref="account.model_account_bank_statement_line"/>
+            <field name="state">code</field>
+            <field name="code">model.cron_auto_del_reconciliation()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="active" eval="False"/>
+            <field name="nextcall" eval="(datetime.utcnow() + timedelta(days=0)).strftime('%Y-%m-%d 08:30:00')"/>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="True"/>
+        </record>
+        <record model="ir.cron" id="ir_cron_auto_assign_payment_bank_st_line">
+            <field name="name">Chariots: Asignar pagos automaticamente en extractos</field>
+            <field name="model_id" ref="account.model_account_bank_statement_line"/>
+            <field name="state">code</field>
+            <field name="code">model.cron_assignate_payment()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="active" eval="False"/>
+            <field name="nextcall" eval="(datetime.utcnow() + timedelta(days=0)).strftime('%Y-%m-%d 07:00:00')"/>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="True"/>
+        </record>
+        <record model="ir.cron" id="ir_cron_recompute_kfc_sale">
+            <field name="name">Recalcular campos de Ventas</field>
+            <field name="model_id" ref="chariots_core.model_chariots_import_kfc_sale"/>
+            <field name="state">code</field>
+            <field name="code">model.cron_compute_sale_amounts()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="active" eval="False"/>
+            <field name="nextcall" eval="(datetime.utcnow() + timedelta(days=0)).strftime('%Y-%m-%d 07:00:00')"/>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="True"/>
+        </record>
+        <record model="ir.cron" id="ir_cron_generate_custom_reports">
+            <field name="name">Reportes personalizados: Generar Pendientes</field>
+            <field name="model_id" ref="chariots_core.model_chariots_report"/>
+            <field name="state">code</field>
+            <field name="code">model.cron_generate_report()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">minutes</field>
+            <field name="active" eval="True"/>
+            <field name="nextcall" eval="(datetime.utcnow() + timedelta(days=0)).strftime('%Y-%m-%d 07:00:00')"/>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="True"/>
+        </record>
+        <record model="ir.cron" id="ir_cron_acc_balance_analytic">
+            <field name="name">Balance analítico</field>
+            <field name="model_id" ref="account.model_account_move_line"/>
+            <field name="state">code</field>
+            <field name="code">model.cron_balance_analytic()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="active" eval="False"/>
+            <field name="nextcall" eval="(datetime.utcnow() + timedelta(days=0)).strftime('%Y-%m-%d 07:00:00')"/>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="res_partner_supplier_inherit_tree" model="ir.ui.view">
+        <field name="model">res.partner</field>
+      	<field name="inherit_id" ref="base.view_partner_tree"/>
+      	<field name="arch" type="xml">
+            <field name="phone" position="before">
+                <field name="comercial"/>
+            </field>
+   	    </field>
+    </record>
+    <record id="res_partner_supplier_inherit" model="ir.ui.view">
+        <field name="model">res.partner</field>
+      	<field name="inherit_id" ref="base.view_partner_form"/>
+      	<field name="arch" type="xml">
+            <field name="ref" position="replace">
+                <field name="comercial"/>
+            </field>
+            <field name="comercial" position="replace">
+                <field name="ref" string="Código" />
+            </field>
+            <field name="sii_simplified_invoice" position="after">
+                <field name="sii_description_method"/>
+                <field name="custom_description_sii"/>
+            </field>
+            <field name="function" position="after">
+                <field name="employee"/>
+            </field>
+            <xpath expr="//form/sheet/notebook/page[@name='accounting']/group/group[@name='banks']" position="before">
+                <group string="Vía de pago" name="pay_method" groups="account.group_account_invoice" attrs="{'invisible': [('customer','=',True)]}">
+                    <field name="payment_origin_sel" nolabel="1"/>
+                </group>
+            </xpath>
+            <xpath expr="//field[@name='property_account_receivable_id']" position="attributes">
+                <attribute name="options">{'no_create':True,'no_create_edit':True}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='property_account_payable_id']" position="attributes">
+                <attribute name="options">{'no_create':True,'no_create_edit':True}</attribute>
+            </xpath>
+   	    </field>
+    </record>
+</odoo>

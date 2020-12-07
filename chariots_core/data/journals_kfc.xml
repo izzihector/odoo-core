@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!-- Journal Account -->
+        <record id="account_journal_pay_kfc" model="account.journal">
+            <field name="name">Pagos KFC</field>
+            <field name="type">general</field>
+            <field name="code">PAYKFC</field>
+            <field name="company_id" ref="base.main_company"/>
+        </record>
+    </data>
+</odoo>

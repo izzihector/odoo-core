@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="actions_kfc_store" model="ir.actions.act_window">
+            <field name="name">KFC - Tiendas</field>
+            <field name="res_model">chariots.import.kfc.store</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                   Crea una nueva tienda de KFC
+                </p>
+            </field>
+        </record>
+
+        <record id="actions_kfc_store_form" model="ir.ui.view">
+            <field name="name">chariots.import.kfc.store.form</field>
+            <field name="model">chariots.import.kfc.store</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group col="4" string="Datos">
+                            <field name="name"/>
+                            <field name="external_id"/>
+                            <field name="analytic_account_id" options="{'no_create':True,'no_create_edit':True}"/>
+                            <field name="partner_id" options="{'no_create':True,'no_create_edit':True}"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="actions_kfc_store_search" model="ir.ui.view">
+            <field name="name">chariots.import.kfc.store.search</field>
+            <field name="model">chariots.import.kfc.store</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <field name="external_id"/>
+                    <field name="analytic_account_id"/>
+                    <field name="partner_id"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="actions_kfc_store_tree" model="ir.ui.view">
+            <field name="name">chariots.import.kfc.store.tree</field>
+            <field name="model">chariots.import.kfc.store</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="analytic_account_id"/>
+                    <field name="partner_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <menuitem
+            action="actions_kfc_store"
+            id="menu_actions_kfc_store"
+            parent="account_chariots_kfc_menu_config"
+            name="Tiendas"
+            sequence="1"
+        />
+
+    </data>
+</odoo>

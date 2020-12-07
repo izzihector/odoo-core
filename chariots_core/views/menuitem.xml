@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Items de Menú -->
+        <menuitem
+            id="account_chariots_import_menu"
+            name="Importación Chariots"
+            parent="account.menu_finance_configuration"
+            sequence="10"
+            groups="account.group_account_manager"
+        />
+        <menuitem
+            id="account_chariots_kfc_menu"
+            name="KFC"
+            parent="account_accountant.menu_accounting"
+            sequence="30"
+            groups="account.group_account_manager"
+        />
+        <menuitem
+            id="account_chariots_kfc_menu_sales"
+            name="Ventas"
+            parent="account_chariots_kfc_menu"
+            sequence="1"
+            groups="account.group_account_manager"
+        />
+        <menuitem
+            id="account_chariots_kfc_menu_config"
+            name="Ajustes"
+            parent="account_chariots_kfc_menu"
+            sequence="100"
+            groups="account.group_account_manager"
+        />
+    </data>
+</odoo>
+

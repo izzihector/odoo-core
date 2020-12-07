@@ -1,0 +1,43 @@
+<?xml version="1.0"?> 
+<odoo> 
+    <data>
+        <record id="view_form_mk_doc_area" model="ir.ui.view"> 
+            <field name="name">Área del documento</field> 
+            <field name="model">mk.doc.area</field> 
+            <field name="arch" type="xml"> 
+                <form>
+                    <sheet>
+                        <group string="Datos del Área">
+                            <field name="name"/> 
+                            <field name="active"/> 
+                        </group>
+                    </sheet>
+                </form> 
+            </field> 
+        </record>
+
+        <record id="view_tree_mk_doc_area" model="ir.ui.view"> 
+            <field name="name">Áreas</field> 
+            <field name="model">mk.doc.area</field> 
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_mk_doc_area" model="ir.actions.act_window">
+            <field name="name">Áreas</field>
+            <field name="res_model">mk.doc.area</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    <b>No hay áreas creadas</b>...
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record model="ir.config_parameter" id="ftp_domain">
+            <field name="key">Ftp.domain</field>
+            <field name="value" type="char">http://example.com</field>
+        </record>
+        <record model="ir.config_parameter" id="ftp_port">
+            <field name="key">Ftp.port</field>
+            <field name="value" type="int">23</field>
+        </record>
+        <record model="ir.config_parameter" id="ftp_username">
+            <field name="key">Ftp.username</field>
+            <field name="value" type="char">User Example</field>
+        </record>
+        <record model="ir.config_parameter" id="ftp_pass">
+            <field name="key">Ftp.password</field>
+            <field name="value" type="char">dgdsds</field>
+        </record>
+        <record model="ir.config_parameter" id="ftp_local_path">
+            <field name="key">Ftp.local.path</field>
+            <field name="value" type="char">/home/odoo</field>
+        </record>
+        <record model="ir.config_parameter" id="ftp_sabadell_domain">
+            <field name="key">Ftp_Sabadell.domain</field>
+            <field name="value" type="char">194.224.15.103</field>
+        </record>
+        <record model="ir.config_parameter" id="ftp_sabadell_port">
+            <field name="key">Ftp_Sabadell.port</field>
+            <field name="value" type="int">992</field>
+        </record>
+        <record model="ir.config_parameter" id="ftp_sabadell_username">
+            <field name="key">Ftp_Sabadell.username</field>
+            <field name="value" type="char">FTP00029</field>
+        </record>
+        <record model="ir.config_parameter" id="ftp_sabadell_pass">
+            <field name="key">Ftp_Sabadell.password</field>
+            <field name="value" type="char">FTP00029</field>
+        </record>
+        <record model="ir.config_parameter" id="ftp_sabadell_path">
+            <field name="key">Ftp_Sabadell.path</field>
+            <field name="value" type="char">/home/odoo/tmp</field>
+        </record>
+        <record model="ir.config_parameter" id="ftp_sabadell_filename">
+            <field name="key">Ftp_Sabadell.filename</field>
+            <field name="value" type="char">master.43</field>
+        </record>
+        <record model="ir.config_parameter" id="ftp_sabadell_filesize">
+            <field name="key">Ftp_Sabadell.filesize</field>
+            <field name="value" type="int">0</field>
+        </record>
+        <record model="ir.config_parameter" id="ftp_sabadell_key">
+            <field name="key">Ftp_Sabadell.key</field>
+            <field name="value" type="char">~/.ssh/id_rsa</field>
+        </record>
+        <record model="ir.config_parameter" id="ftp_sabadell_last_import">
+            <field name="key">Ftp_Sabadell.last_import</field>
+            <field name="value" type="char">2020-01-01</field>
+        </record>
+        <record forcecreate="True" id="fiscal_position_id_intracomunitary" model="ir.property">
+            <field name="name">fiscal_position_id_intracomunitary</field>
+            <field name="fields_id" search="[('model','=','account.fiscal.position'),('name','=','id')]"/>
+            <field eval="'account.fiscal.position,'+str(1)" model="account.fiscal.position" name="value"/>
+            <field name="company_id" ref="base.main_company"/>
+        </record>
+        <record forcecreate="True" id="fiscal_position_id_inversion" model="ir.property">
+            <field name="name">fiscal_position_id_inversion</field>
+            <field name="fields_id" search="[('model','=','account.fiscal.position'),('name','=','id')]"/>
+            <field eval="'account.fiscal.position,'+str(2)" model="account.fiscal.position" name="value"/>
+            <field name="company_id" ref="base.main_company"/>
+        </record>
+        <record forcecreate="True" id="account_account_donative_one" model="ir.property">
+            <field name="name">account_account_donative_one</field>
+            <field name="fields_id" search="[('model','=','account.account'),('name','=','code')]"/>
+            <field eval="'account.account,2419'" model="account.account" name="value"/>
+            <field name="company_id" ref="base.main_company"/>
+        </record>
+        <record forcecreate="True" id="account_account_donative_two" model="ir.property">
+            <field name="name">account_account_donative_two</field>
+            <field name="fields_id" search="[('model','=','account.account'),('name','=','code')]"/>
+            <field eval="'account.account,2433'" model="account.account" name="value"/>
+            <field name="company_id" ref="base.main_company"/>
+        </record>
+        <record model="ir.config_parameter" id="root_dir_in_inv">
+            <field name="key">google_drive_root_dir_in_inv_id</field>
+            <field name="value" type="char">TOKEN</field>
+        </record>
+        <record forcecreate="True" id="account_account_type_c" model="ir.property">
+            <field name="name">account_account_type_c</field>
+            <field name="fields_id" search="[('model','=','account.account.type'),('name','=','id')]"/>
+            <field eval="'account.account.type,1'" model="account.account.type" name="value"/>
+            <field name="company_id" ref="base.main_company"/>
+        </record>
+        <record forcecreate="True" id="account_account_type_p" model="ir.property">
+            <field name="name">account_account_type_p</field>
+            <field name="fields_id" search="[('model','=','account.account.type'),('name','=','id')]"/>
+            <field eval="'account.account.type,2'" model="account.account.type" name="value"/>
+            <field name="company_id" ref="base.main_company"/>
+        </record>
+        <record forcecreate="True" id="payment_term_id_pay" model="ir.property">
+            <field name="name">payment_term_id_pay</field>
+            <field name="fields_id" search="[('model','=','account.payment.term'),('name','=','id')]"/>
+            <field eval="'account.payment.term,6'" model="account.payment.term" name="value"/>
+            <field name="company_id" ref="base.main_company"/>
+        </record>
+    </data>
+</odoo>

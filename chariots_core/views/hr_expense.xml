@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="hr_expense_sheer_form_ch_inherit" model="ir.ui.view">
+        <field name="model">hr.expense.sheet</field>
+        <field name="inherit_id" ref="hr_expense.view_hr_expense_sheet_form"/>
+        <field name="arch" type="xml">
+            <field name="journal_id" position="replace">
+                <field name="journal_id" domain="[('type', '=', 'purchase'), ('code', '=', 'FREM')]"
+                    options="{'no_open': True, 'no_create': True}"
+                    attrs="{'invisible': [('payment_mode', '!=', 'own_account')]}"
+                />
+            </field>
+        </field>
+    </record>
+    <record id="hr_expense_form_inherit" model="ir.ui.view">
+        <field name="model">hr.expense</field>
+        <field name="inherit_id" ref="hr_expense_invoice.hr_expense_view_form"/>
+        <field name="arch" type="xml">
+            <field name="invoice_id" position="replace"/>
+            <field name="unit_amount" position="replace"/>
+            <field name="quantity" position="replace"/>
+            <field name="tax_ids" position="replace"/>
+            <field name="date" position="replace"/>
+            <field name="account_id" position="replace"/>
+            <field name="employee_id" position="replace"/>
+            <field name="analytic_account_id" position="replace"/>
+            <field name="analytic_tag_ids" position="replace"/>
+            <field name="company_id" position="replace"/>
+            <xpath expr="//form/sheet/group/group/label" position="replace"/>
+            <xpath expr="//form/sheet/group/group/div" position="replace"/>
+
+            <field name="product_id" position="replace">
+                <field name="date"/>
+                <field name="product_id" context="{'default_can_be_expensed': 1, 'tree_view_ref': 'hr_expense.product_product_expense_tree_view'}"/>
+                <field name="account_id" domain="[('internal_type', '=', 'other')]" groups="account.group_account_user"/>
+                <field name="unit_amount" required="1" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                <label for="quantity"/>
+                <div>
+                    <field name="quantity" class="oe_inline" nolabel="1"/>
+                    <field name="product_uom_id" widget="selection" class="oe_inline" groups="uom.group_uom"/>
+                </div>
+                <field name="tax_ids" domain="[('type_tax_use', '=', 'purchase')]" widget="many2many_tags" groups="account.group_account_user" invisible="1"/>
+
+            </field>
+            <field name="reference" position="replace">
+                <field name="company_id" groups="base.group_multi_company"/>
+                <field name="employee_id" groups="hr_expense.group_hr_expense_user"/>
+                <field name="analytic_account_id" groups="analytic.group_analytic_accounting"/>
+                <field name="analytic_tag_ids" widget="many2many_tags" groups="analytic.group_analytic_tags"/>
+                <field name="reference"/>
+                <field name="invoice_id" context="{'partner_required':True, 'default_type': 'in_invoice', 'type': 'in_invoice', 'journal_type': 'purchase', 'default_reference': reference, 'default_date_invoice': date, 'default_invoice_line_ids': [{'product_id': product_id, 'name': name, 'price_unit': unit_amount, 'quantity': quantity, 'date_invoice': date, 'account_id': account_id, 'invoice_line_tax_ids': tax_ids, }],}"/>
+
+                <field name="sheet_id" invisible="1"/>
+                <field name="currency_id" groups="base.group_multi_currency"/>
+            </field>
+        </field>
+    </record>
+    <record id="view_form_hr_expense_code" model="ir.ui.view"> 
+        <field name="name">Códigos de gasto</field> 
+        <field name="model">hr.expense.code</field> 
+        <field name="arch" type="xml"> 
+            <form>
+                <sheet>
+                    <group string="Datos">
+                        <field name="name"/> 
+                        <field name="product_id"/> 
+                    </group>
+                </sheet>
+            </form> 
+        </field> 
+    </record>
+
+    <record id="view_tree_hr_expense_code" model="ir.ui.view"> 
+        <field name="name">Códigos de gasto</field> 
+        <field name="model">hr.expense.code</field> 
+        <field name="arch" type="xml">
+            <tree  editable="bottom">
+                <field name="name"/> 
+                <field name="product_id"/> 
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_hr_expense_code" model="ir.actions.act_window">
+        <field name="name">Códigos de gasto</field>
+        <field name="res_model">hr.expense.code</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                <b>No hay códigos disponibles</b>...
+            </p>
+        </field>
+    </record>
+    <menuitem
+        id="hr_expense_code_menu"
+        name="Códigos de gasto"
+        parent="hr_expense.menu_hr_expense_configuration"
+        sequence="30"
+        groups="hr_expense.group_hr_expense_manager"
+        action="action_hr_expense_code"
+    />
+</odoo>

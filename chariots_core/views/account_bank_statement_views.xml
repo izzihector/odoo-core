@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- Vista Form Extracto -->
+    <record id="view_bank_statement_form_inherit" model="ir.ui.view">
+        <field name="model">account.bank.statement</field>
+      	<field name="inherit_id" ref="account.view_bank_statement_form"/>
+      	<field name="arch" type="xml">
+            <xpath expr="//form/sheet/div[hasclass('oe_title')]" position="replace"/>
+        </field>
+
+    </record>
+
+    <!-- Vista Árbol Extracto -->
+    <record id="view_bank_statement_tree_inherit" model="ir.ui.view">
+        <field name="model">account.bank.statement</field>
+      	<field name="inherit_id" ref="account.view_bank_statement_tree"/>
+      	<field name="arch" type="xml">
+            <field name="name" position="replace"/>
+   	    </field>
+    </record>
+
+    <!-- Vista Árbol Operaciones -->
+    <record id="view_bank_statement_line_tree_inherit" model="ir.ui.view">
+        <field name="model">account.bank.statement.line</field>
+      	<field name="inherit_id" ref="account.view_bank_statement_line_tree"/>
+      	<field name="arch" type="xml">
+            <field name="journal_id" position="replace">
+                <field name="journal_id" invisible="0" readonly="1" />
+            </field>
+   	    </field>
+    </record>
+
+     <!-- Vista Form Operaciones -->
+    <record id="view_bank_statement_line_form_inherit" model="ir.ui.view">
+        <field name="model">account.bank.statement.line</field>
+      	<field name="inherit_id" ref="account.view_bank_statement_line_form"/>
+      	<field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <field name="journal_id" readonly="1" />
+                <field name="account_payment_id"/>
+                <field name="auto_reconciliation" readonly="1"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_account_bank_state_line_inherit" model="ir.ui.view">
+            <field name="name">view_account_bank_state_line_inherit</field>
+            <field name="model">account.bank.statement.line</field>
+            <field name="inherit_id" ref="account.view_bank_statement_line_search" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='journal_id']" position="after">
+                    <separator/>
+                    <filter string="Conciliado automaticamente" 
+                        name="st_line_conc_auto" 
+                        domain="[('auto_reconciliation', '=', True)]"/>
+                    <filter string="Conciliado manualmente" 
+                        name="st_line_conc_manu" 
+                        domain="[('auto_reconciliation', '=', False), ('journal_entry_ids','!=', False)]"/>
+                </xpath>
+            </field>
+        </record>
+
+    <record id="cancel_bank_statement" model="ir.actions.server">
+        <field name="name">Cancelar Extracto(s)</field>
+        <field name="type">ir.actions.server</field>
+        <field name="state">code</field>
+        <field name="model_id" ref="account.model_account_bank_statement"/>
+        <field name="binding_model_id" ref="model_account_bank_statement"/>
+        <field name="code">
+            if records:
+            action = records.extract_cancel()
+        </field>
+    </record>
+</odoo>

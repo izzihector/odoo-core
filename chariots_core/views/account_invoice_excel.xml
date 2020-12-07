@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_chariots_account_invoice_excel_form" model="ir.ui.view">
+            <field name="name">chariots.account.invoice.excelform</field>
+            <field name="model">chariots.account.invoice.excel</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group col="4">
+                        <field name='initial_date' />
+                        <field name='end_date' />
+                    </group>
+                    <group>
+                        <field name="type" />
+                    </group>
+                    <group>
+                        <field attrs="{'invisible':[('type','!=','customer')]}" options="{'no_create':True,'no_create_edit':True}" name='customer_ids' mode="tree">
+                            <tree editable="bottom">
+                                <field name="name"/>
+                            </tree>
+                        </field>
+                         <field attrs="{'invisible':[('type','!=','supplier')]}" options="{'no_create':True,'no_create_edit':True}" name='supplier_ids' mode="tree">
+                            <tree editable="bottom">
+                                <field name="name"/>
+                            </tree>
+                        </field>
+                    </group>
+                    <footer>
+                       <div>
+                            <button id="download-excel-invoice" type="object" string="Descargar" class="oe_highlight"/>
+                            <button special="cancel" string="Cerrar"  class="btn-secondary"/>
+                        </div>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_download_excel_account_invoice" model="ir.actions.act_window">
+            <field name="name">Descargar Informes Facturas</field>
+            <field name="res_model">chariots.account.invoice.excel</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_chariots_account_invoice_excel_form"/>
+            <field name="target">new</field>
+        </record>
+        
+        <menuitem id="menu_act_download_excel_ccount_invoice"
+                  name="Libro de Facturas"
+                  groups="account.group_account_invoice"
+                  parent="account.account_reports_management_menu" 
+                  action="action_download_excel_account_invoice" sequence='32'/>
+    </data>
+</odoo>

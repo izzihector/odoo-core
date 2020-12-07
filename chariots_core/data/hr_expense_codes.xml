@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+
+        <!-- Codes expense -->
+        <record id="hr_expense_1" model="hr.expense.code">
+            <field name="name">CAP-EO</field>
+        </record>
+        <record id="hr_expense_2" model="hr.expense.code">
+            <field name="name">F-MC</field>
+        </record>
+        <record id="hr_expense_3" model="hr.expense.code">
+            <field name="name">F-O</field>
+        </record>
+        <record id="hr_expense_4" model="hr.expense.code">
+            <field name="name">O-EO</field>
+        </record>
+        <record id="hr_expense_5" model="hr.expense.code">
+            <field name="name">O-EV-PR</field>
+        </record>
+        <record id="hr_expense_6" model="hr.expense.code">
+            <field name="name">O-O</field>
+        </record>
+        <record id="hr_expense_7" model="hr.expense.code">
+            <field name="name">O-MO</field>
+        </record>
+        <record id="hr_expense_8" model="hr.expense.code">
+            <field name="name">SEM-MO</field>
+        </record>
+        <record id="hr_expense_9" model="hr.expense.code">
+            <field name="name">SEM-O</field>
+        </record>
+        <record id="hr_expense_10" model="hr.expense.code">
+            <field name="name">SEM-PL</field>
+        </record>
+        <record id="hr_expense_11" model="hr.expense.code">
+            <field name="name">SEM-SW</field>
+        </record>
+        <record id="hr_expense_12" model="hr.expense.code">
+            <field name="name">SEM-TP</field>
+        </record>
+        <record id="hr_expense_13" model="hr.expense.code">
+            <field name="name">SEM-UF</field>
+        </record>
+        <record id="hr_expense_14" model="hr.expense.code">
+            <field name="name">STU-C</field>
+        </record>
+        <record id="hr_expense_15" model="hr.expense.code">
+            <field name="name">STU-H</field>
+        </record>
+        <record id="hr_expense_16" model="hr.expense.code">
+            <field name="name">STU-T</field>
+        </record>
+        <record id="hr_expense_17" model="hr.expense.code">
+            <field name="name">TE-D</field>
+        </record>
+        <record id="hr_expense_18" model="hr.expense.code">
+            <field name="name">TE-E</field>
+        </record>
+        <record id="hr_expense_19" model="hr.expense.code">
+            <field name="name">TE-M</field>
+        </record>
+        <record id="hr_expense_20" model="hr.expense.code">
+            <field name="name">TE-R</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.module.category" id="module_category_chariots_documents">
+            <field name="name">Category Manuals and Documents Melkart(Chariots)</field>
+            <field name="sequence">60</field>
+        </record>
+        <record id="group_editor_chariots_documentos" model="res.groups">
+            <field name="name">Editor</field>
+            <field name="category_id" ref="module_category_chariots_documents"/>
+        </record>
+        <record id="group_lector_chariots_documentos" model="res.groups">
+            <field name="name">Lector</field>
+            <field name="category_id" ref="module_category_chariots_documents"/>
+        </record>
+    </data>
+</odoo>

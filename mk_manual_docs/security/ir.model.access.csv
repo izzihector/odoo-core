@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_mk_doc_area,mk doc area,model_mk_doc_area,base.group_user,1,1,1,1
+access_mk_doc_doc,mk doc doc,model_mk_doc_doc,base.group_user,1,1,1,1
+access_mk_doc_category,mk doc category,model_mk_doc_category,base.group_user,1,1,1,1

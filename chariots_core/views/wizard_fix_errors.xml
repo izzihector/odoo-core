@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_chariots_wizard_fix_errors_form" model="ir.ui.view">
+            <field name="name">chariots.wizard.fix.errorsform</field>
+            <field name="model">chariots.wizard.fix.errors</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <field name='error_fix_selection' />
+                        <field name='journal_id' />
+                        <field name='acc_anal_id' />
+                        <field name='partner_id'/>
+                        <field name='date_init' />
+                        <field name='date_from' />
+
+                    </group>
+                    <footer>
+                       <div>
+                            <button name="button_confirm" type="object" string="Confirmar" class="btn-primary"/>
+                            <button special="cancel" string="Cerrar"  class="btn-secondary"/>
+                        </div>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_chariots_wizard_fix_errors_form" model="ir.actions.act_window">
+            <field name="name">Arreglar fallos del sistema</field>
+            <field name="res_model">chariots.wizard.fix.errors</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_chariots_wizard_fix_errors_form"/>
+            <field name="target">new</field>
+        </record>
+        
+        <menuitem id="menu_act_fix_errors"
+                  name="Arreglar fallos del sistema"
+                  parent="base.menu_administration" 
+                  action="action_chariots_wizard_fix_errors_form" 
+                  sequence='10'/>
+    </data>
+</odoo>
